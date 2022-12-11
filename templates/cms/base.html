@@ -1,0 +1,88 @@
+{%load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!--<link href="{% static '/css/dashboard.css' %}" rel="stylesheet"> -->
+<style>
+  .card-body{
+    overflow-x: auto;
+  }
+		.success {
+      padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+			background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #3c763d;
+		}
+		
+		.error{
+			padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442;
+		}
+		
+</style>
+    <title>Admin Board </title>
+  </head>
+  <body>
+    {% include 'cms/navbar.html' %}
+    <!-- <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    
+      
+    </main> -->
+    <div class="container">
+    {% block content %}
+      
+      {% endblock  %}
+
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <!-- Icons -->
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+    integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
+  <script src="{%static 'js/dashboard.js' %}"></script>
+    <script>
+      feather.replace()
+    </script>
+    <script>
+    
+
+      $(document).ready(function () {
+    $('.nav li a').click(function(e) {
+
+        $('.nav li.active').removeClass('active');
+
+        var $parent = $(this).parent();
+        $parent.addClass('active');
+    });
+});
+  </script>
+  <script>
+    function toggle(source) {
+  checkboxes = document.getElementsByName('payouts');
+  for(var i=0, n=checkboxes.length;i<n;i++) {
+    checkboxes[i].checked = source.checked;
+  }
+}
+   
+    </script>
+  </body>
+</html>
