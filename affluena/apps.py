@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
-class AffluenaConfig(AppConfig):
-    name = 'Affluena'
+class affluenaConfig(AppConfig):
+    name = 'affluena'
     def ready(self):
         from affluena import signals
