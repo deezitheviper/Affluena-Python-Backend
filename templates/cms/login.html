@@ -1,0 +1,61 @@
+{%load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<title>Login</title>
+</head>
+
+<body>
+	<div class="user">
+		<header class="user__header">
+			<img src="{% static 'Affluena-icon.png' %}" height="200" alt="" />
+			<br/>
+			<h1 class="user__title">LOGIN</h1>
+		</header>
+
+		<form class="form" method="POST">
+			{% csrf_token %}
+			{% if messages %}
+			{%for message in messages %}
+			<div class="error">
+				{{ message }}
+			</div>
+			{%endfor%}
+			{% endif %}
+			<div class="form__group">
+				<input type="text" placeholder="Username" class="form__input" name="username" />
+			</div>
+
+			<div class="form__group">
+				<input type="password" placeholder="Password" class="form__input" name="password" />
+			</div>
+
+			<button class="btn" type="submit">Login</button>
+
+		</form>
+		<br>
+
+		<div style="text-align: center; color: azure;">
+			
+			<br>
+			
+		</div>
+	</div>
+
+
+	<script>
+		const button = document.querySelector('.btn')
+		const form = document.querySelector('.form')
+
+		button.addEventListener('click', function () {
+			form.classList.add('form--no')
+		});
+	</script>
+</body>
+
+</html>

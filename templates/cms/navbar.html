@@ -1,0 +1,139 @@
+
+{% load static %}
+<!-- 
+  <nav class="site-header sticky-top py-1">
+  <div class="container d-flex flex-column flex-md-row justify-content-between">
+    <a class="py-2" href="#">
+      <img src="{% static 'Affluena-icon.png'  %}" height="30px"  style="margin-right: 20px;" alt="Affluena"/>  </a>
+    <a class="py-2 d-none d-md-inline-block" href="{% url 'board' %}">Dashboard</a>
+    <a class="py-2 d-none d-md-inline-block" href="{% url 'accounts:orders' %}">Contributions</a>
+    <a class="py-2 d-none d-md-inline-block" href="{% url 'accounts:members' %}">Members</a>
+    <a class="py-2 d-none d-md-inline-block" href="{% url 'accounts:payouts' %}">Payouts</a>
+    <a class="py-2 d-none d-md-inline-block" href="{% url 'accounts:refpayouts' %}">Referral Payouts</a>
+    <a class="py-2 d-none d-md-inline-block" href="{% url 'accounts:loans' %}">Loans</a>
+
+    <div class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item dropdown">
+     
+        <a class=" nav-link dropdown-toggle dropdown-toggle" data-toggle="dropdown" href="#">All Payouts</a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">            
+              <li><a class="dropdown-item" href="{% url 'accounts:all-payouts' %}">Payouts</a></li>
+            <li><a class="dropdown-item" href="{% url 'accounts:all-refpayouts' %}">Referral Payouts</a></li>
+      </li>
+  
+    </div>
+
+    
+      <div class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+       
+          <a class=" nav-link dropdown-toggle dropdown-toggle" data-toggle="dropdown" href="#">Active Contributions</a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">            
+                <li><a class="dropdown-item" href="{% url 'accounts:simples' %}">Simple Contribution</a></li>
+              <li><a class="dropdown-item" href="{% url 'accounts:compounds' %}">Compound Contribution</a></li>
+        </li>
+    
+      </div>
+
+      <div class="navbar-nav">
+      <li class="nav-item dropdown">
+     
+        <a class=" nav-link dropdown-toggle dropdown-toggle" data-toggle="dropdown" href="#">Top Ups</a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">            
+              <li><a class="dropdown-item" href="{% url 'accounts:topups' %}">Simple Contribution</a></li>
+            <li><a class="dropdown-item" href="{% url 'accounts:ctopups' %}">Compound Contribution</a></li>
+            </div>
+           
+  </div>
+</nav>
+-->
+<style>
+  .body{
+    font-size: 0.87rem;
+  }
+  .user {
+    color: #ffffff;
+    font-size: 17px;
+  }
+  
+.pagination {
+  display: inline-block;
+}
+.nav-link:active{
+color: #ffffff;
+}
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+.pagination a.active {
+  background-color: #007bff;
+  color: white;
+}
+.bg-info {
+    background-color: #499475!important;
+}
+.pagination a:hover:not(.active) {background-color: #ddd;}
+</style>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <img src="{% static 'Affluena-icon.png'  %}" height="60"  style="margin-right: 20px;" alt="Affluena"/> &nbsp; &nbsp;
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    
+    <div class="navbar-nav justify-content-end">
+      <a class="nav-item nav-link" href="{% url 'board' %}">Dashboard<span class="sr-only"></span></a>
+
+      <a class="nav-item nav-link" href="{% url 'accounts:orders' %}">Contributions</a>
+    
+      <a class="nav-item nav-link" href="{% url 'accounts:members' %}">Members</a>
+      <a class="nav-item nav-link" href="{% url 'accounts:payouts' %}">Payouts</a>
+      <a class="nav-item nav-link" href="{% url 'accounts:refpayouts' %}">Referral Payouts</a>
+      <a class="nav-item nav-link" href="{% url 'accounts:loans' %}">Loans</a>
+ 
+      <div class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item dropdown">
+     
+        <a class=" nav-link dropdown-toggle dropdown-toggle" data-toggle="dropdown" href="#">All Payouts</a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">            
+              <li><a class="dropdown-item" href="{% url 'accounts:all-payouts' %}">Payouts</a></li>
+            <li><a class="dropdown-item" href="{% url 'accounts:all-refpayouts' %}">Referral Payouts</a></li>
+      </li>
+  
+    </div>
+
+    
+      <div class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+       
+          <a class=" nav-link dropdown-toggle dropdown-toggle" data-toggle="dropdown" href="#">Active Contributions</a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">            
+                <li><a class="dropdown-item" href="{% url 'accounts:simples' %}">Simple Contribution</a></li>
+              <li><a class="dropdown-item" href="{% url 'accounts:compounds' %}">Compound Contribution</a></li>
+        </li>
+    
+      </div>
+
+      <div class="navbar-nav">
+      <li class="nav-item dropdown">
+     
+        <a class=" nav-link dropdown-toggle dropdown-toggle" data-toggle="dropdown" href="#">Top Ups</a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">            
+              <li><a class="dropdown-item" href="{% url 'accounts:topups' %}">Simple Contribution</a></li>
+            <li><a class="dropdown-item" href="{% url 'accounts:ctopups' %}">Compound Contribution</a></li>
+            </div>
+    
+    
+    </div>
+ 
+  </div>
+  {%if user.is_authenticated %}
+  <span class="user">Welcome, &nbsp;<a style="text-decoration: none; color: rgb(255, 154, 71);"
+      href="{% url 'accounts:edit' %}">{{request.user}}</a></span>
+  <a class="user nav-item nav-link" href="{%url 'logout' %}">Logout</a>
+  {%endif%}
+</nav>

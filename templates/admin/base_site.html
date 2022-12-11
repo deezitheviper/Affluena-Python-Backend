@@ -1,0 +1,9 @@
+{% extends 'admin/base_site.html' %}
+{% load static %}
+
+{% block branding %}
+<a href="{% url 'admin:index' %}" class="django-admin-logo">
+    <!-- Django Administration -->
+    <img height="70" src="{% static 'Affluena-icon.png' %}" alt="{{ site_header|default:_('Site') }}">
+</a>
+{% endblock branding %}
