@@ -612,10 +612,10 @@ def emailconfirmed_(request, email_address, **kwargs):
 @receiver(post_save, sender=User)
 def create_user_profile(sender,instance, created, **kwargs):
     if created:
-        if instance.link_code is not None:
+        if instance.referral_code is not None:
             
             try:
-                refferer = Profile.objects.get(code=instance.link_code)  
+                refferer = Profile.objects.get(code=instance.referral_code)  
                 Profile.objects.create(user=instance,code=generate_ref_code(),referredBy=refferer.user)
                 userInstance(instance)
             except ObjectDoesNotExist:
