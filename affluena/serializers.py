@@ -436,7 +436,7 @@ class SignupSerializer(RegisterSerializer):
         self.cleaned_data = self.get_cleaned_data()  
         code = self.data.get('code')
         if code is not None:
-            user.link_code = self.data.get('code') 
+            user.referral_code = self.data.get('code') 
         user.is_super = False
         user.full_name = self.data.get('name')
         user.state = self.data.get('state')
