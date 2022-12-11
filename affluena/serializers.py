@@ -1,7 +1,6 @@
 from allauth.account import app_settings as allauth_settings
 from allauth.account.models import EmailAddress
-from allauth.utils import (email_address_exists,
-                            get_username_max_length)
+from allauth.utils import (email_address_exists)
 from allauth.account.utils import setup_user_email
 from rest_framework import status
 from rest_framework.exceptions import APIException
@@ -373,7 +372,7 @@ class UpdateUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('email','phone','full_name','address','city','state','profile_pic','signature','bank_name','account_no','account_name','is_verified') 
+        fields = ('email','phone','full_name','address','city','state','bank_name','account_no','account_name','is_verified') 
 
     def update(self, instance, validated_data):
         new_email = validated_data.pop('email', None)
