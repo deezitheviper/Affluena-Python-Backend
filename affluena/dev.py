@@ -3,7 +3,7 @@
 from .settings import *
 ALLOWED_HOSTS = ['127.0.0.1','localhost:8000','localhost:3002']
 SITE_ID = 2
-WSGI_APPLICATION = 'Affluena.wsgi.application'
+WSGI_APPLICATION = 'affluena.wsgi.application'
 
 DATABASES = {
     'default': {
