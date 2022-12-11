@@ -1,0 +1,95 @@
+{%extends 'cms/base.html' %}
+{%block content%}
+
+
+<hr/>
+
+
+  <div class="col md-9">
+    {% if messages %}
+    <ul class="messages">
+    {% for message in messages %}
+    <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    <h5>All Payments</h5>
+    <hr>
+    <div class="card card-body">
+        <h6 class="card-subtitle mb-2 text-muted">Search</h6>
+  <form method="GET">
+      {{myfilter.form}}
+      <input type="submit" value="Filter" class="btn btn-primary">
+  </form>
+    </div>
+    <div class="card card-body">
+      <table class="table">
+        <thead>
+
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Product</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Proof</th>
+            <th scope="col">Ordered On</th>
+            <th scope="col">Status</th>
+            <th scope="col">Update</th>
+            <th scope="col">Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for order in orders %}
+          <tr>
+           <td>  {{order.customer.full_name}}</td>
+            <td>{{order.product}}</td>
+            <td>{{order.amount}}</td>
+            {%if order.proof%}
+            <td><a href="{{order.proof.url}}">view proof </a></td>
+            {%else%}
+            <td>{{order.proof}}</td>
+            
+            {%endif%}
+            <td>{{order.date_ordered}}</td>
+            <td>{{order.status}}</td>
+            
+            {%if request.user.is_superuser %}
+            <td><a href="{%url 'accounts:update' pk=order.pk c_pk=order.customer.pk %}"
+              class="btn btn-success btn-sm">Update</a></td>
+          <td><a href="{%url 'accounts:delete' pk=order.pk %}"
+              class="btn btn-danger btn-sm">Remove</a></td>
+            {%else%}
+            <td><a href="{%url 'accounts:update' pk=order.pk c_pk=order.customer.pk %}"
+                class="btn btn-success disabled btn-sm">Update</a></td>
+            <td><a href="{%url 'accounts:delete' pk=order.pk %}"
+                class="btn btn-danger disabled btn-sm">Remove</a></td>
+                {%endif%}
+          </tr>
+          {%endfor%}
+   
+        </tbody>
+      </table>
+    </div>
+    <br/>
+    <hr>
+    {% if orders.has_other_pages %}
+  <div class="pagination">
+    {% if orders.has_previous %}
+      <a href="?page={{ orders.previous_page_number }}">&laquo;</a>
+    {% else %}
+      <a class="disabled"><span>&laquo;</span>
+    {% endif %}
+    {% for i in orders.paginator.page_range %}
+      {% if orders.number == i %}
+        <a class="active"><span>{{ i }} <span class="sr-only">(current)</span></span>
+      {% else %}
+        <a href="?page={{ i }}">{{ i }}</a>
+      {% endif %}
+    {% endfor %}
+    {% if orders.has_next %}
+      <a href="?page={{ orders.next_page_number }}">&raquo;</a>
+    {% else %}
+      <a class="disabled"><span>&raquo;</span>
+    {% endif %}
+  </div>
+{% endif %}
+  {%endblock%}

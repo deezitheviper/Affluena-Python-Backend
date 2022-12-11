@@ -1,0 +1,11 @@
+{% extends 'cms/base.html' %}
+{%block content%}
+<h6>Do you want to delete {{item}}'s Submission</h6>
+<p>Leave a Message or Remark for the user, which will be sent to the user's email</p>
+<form method="POST" action="{% url 'accounts:delete' pk=item.pk %}">
+    {% csrf_token %}
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="btn btn-danger" type="submit">Delete</button>
+</form>
+{%endblock%}

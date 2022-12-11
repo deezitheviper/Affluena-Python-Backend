@@ -1,0 +1,71 @@
+{% extends "cms/base.html" %}
+
+{%block content %}
+
+<div class="row" style="margin-top: 30px;">
+    <div class="col-md-4">
+
+        <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Member <span class="badge badge-info">{{group}}</span></h5>
+              <p>{{customer.full_name}}</p>
+              <p>username: {{customer.username}}</p>
+          </div>  
+          </div>      
+    </div>
+   
+<br>
+
+<div class="col-md">  
+  <br>
+  <br>
+  <hr>
+  <h6 class="card-subtitle mb-2 text-muted">Downline</h6>
+    
+        <div class="card card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Account Balance</th>
+                <th scope="col">Date Joined</th>
+                <th scope="col">View User</th>
+              </tr>
+            </thead>  
+            <tbody>
+              {%for ref in refList %}
+              <tr>
+                <td>{{ref.user.full_name}}</td>
+                <td>{{ref.user.account_balance}}</td>
+                <td>{{ref.user.date_joined}}</td>
+                <td><a class="btn btn-primary" href="{% url 'accounts:customer' pk=ref.user.pk %}">View</a></td>
+              </tr>
+              {%endfor%}
+            </tbody>         
+          </table>
+      </div> 
+</div> 
+<br/>
+<hr>
+{% if refList.has_other_pages %}
+<div class="pagination">
+{% if refList.has_previous %}
+  <a href="?page={{ refList.previous_page_number }}">&laquo;</a>
+{% else %}
+  <a class="disabled"><span>&laquo;</span>
+{% endif %}
+{% for i in refList.paginator.page_range %}
+  {% if refList.number == i %}
+    <a class="active"><span>{{ i }} <span class="sr-only">(current)</span></span>
+  {% else %}
+    <a href="?page={{ i }}">{{ i }}</a>
+  {% endif %}
+{% endfor %}
+{% if refList.has_next %}
+  <a href="?page={{ refList.next_page_number }}">&raquo;</a>
+{% else %}
+  <a class="disabled"><span>&raquo;</span>
+{% endif %}
+</div>
+{% endif %}
+{%endblock%}

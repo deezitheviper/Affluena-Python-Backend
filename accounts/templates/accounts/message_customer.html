@@ -1,0 +1,46 @@
+
+{% extends "cms/base.html" %}
+{%load static %}
+{% block content %}
+
+<head>
+   <link rel="stylesheet" href="{% static '/css/master.css' %}">
+</head>
+<br>
+<br>
+<div class="row profile">
+
+    <div class="col-md-3">
+        <div class="profile-sidebar">
+            <div class="profile-usertitle">
+              
+                <div class="profile-usertitle-name">
+                    {{customer.username}}
+                </div>
+                <div class="profile-usertitle-job">
+                    Member
+                </div>
+            </div>
+            <!-- END SIDEBAR USER TITLE -->
+            <!-- SIDEBAR BUTTONS -->
+            
+        </div>
+        </div>
+        <div class="col-md-9">
+            {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+    {% endfor %}
+</ul>
+{% endif %}
+            <div class="profile-content">
+               <form action="{%url 'accounts:message' pk=customer.pk %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <input type="submit" class="btn btn-primary" value="Send Message">
+                </form>
+            </div>
+        </div>
+        </div>
+        {% endblock %}

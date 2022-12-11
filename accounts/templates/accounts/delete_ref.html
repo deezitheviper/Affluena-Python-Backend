@@ -1,0 +1,8 @@
+{% extends "cms/base.html" %}
+{%block content%}
+<h6>Do you want to delete {{item}}'s ref payout form</h6>
+<form method="POST" action="{% url 'accounts:delete-refpayout' pk=item.pk %}">
+    {% csrf_token %}
+    <button class="btm" type="submit">Delete</button>
+</form>
+{%endblock%}

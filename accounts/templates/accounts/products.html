@@ -1,0 +1,76 @@
+{% extends 'cms/base.html' %}
+{%block content %}
+<div class="col md-7"> 
+  <br> 
+    <h5>Products</h5>
+    <hr>
+    <br>
+    <form method="POST">
+      {% csrf_token %}
+      {%if form.errors %}
+			<div class="error">
+				{% for field in form %}
+					{% if field.help_text %}<dd><p></p></dd>{% endif %}
+					{% if field.errors %}<dd class="errors">{{ field.errors }}</dd>{% endif %}
+				{% endfor %}
+			</div>
+			{%endif%}
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="id_name">Name:</label>
+          <input type="text" class="form-control" name="name" maxlength="200" required id="inputEmail4">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="id_Category">Category:</label> 
+          <input type="text" class="form-control" name="Category" maxlength="200" required id="id_Category">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="id_Price">Price:</label> 
+          <input type="number" class="form-control" name="Price" step="any" required id="id_Price">  
+        </div>
+        <div class="form-group col-md-5">
+          <label for="id_tag">Tag</label>
+          <select name="tag" id="tag" class="form-control">
+            <option value selected>Choose...</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="id_description">Description</label>
+        <input type="text" name="Description"
+        class="form-control" id="id_Description" placeholder="Description">
+      </div>
+      <button type="submit" class="btn btn-primary">Create Product</button>
+    </form>
+    <br>
+        <div class="card card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Category</th>
+                <th scope="col">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+            {%for product in products %}
+            <tr>
+                <td>
+                    {{product.name}}
+                </td>
+                <td>
+                    {{product.Category}}
+                </td>
+                <td>
+                    {{product.Price}}
+                </td>
+            </tr> 
+            {%endfor%}  
+            </tbody>        
+          </table>
+      </div> 
+</div> 
+{%endblock%}

@@ -1,0 +1,8 @@
+{% extends 'cms/base.html' %}
+{%block content%}
+<h6>Do you want to delete {{item}}'s topup</h6>
+<form method="POST" action="{% url 'accounts:deleteS' pk=item.pk %}">
+    {% csrf_token %}
+    <button class="btn btn-danger" type="submit">Delete</button>
+</form>
+{%endblock%}

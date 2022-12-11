@@ -1,0 +1,8 @@
+{% extends "cms/base.html" %}
+{%block content%}
+<h6>Do you want to delete {{item}}'s {{item.product}} payout form</h6>
+<form method="POST" action="{% url 'accounts:delete-payout' pk=item.pk %}">
+    {% csrf_token %}
+    <button class="btm" type="submit">Delete</button>
+</form>
+{%endblock%}

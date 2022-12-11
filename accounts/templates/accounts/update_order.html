@@ -1,0 +1,68 @@
+{% extends "cms/base.html" %}
+{%load static %}
+{% block content %}
+
+<head>
+ <link rel="stylesheet" href="{% static '/css/master.css' %}">
+</head>
+<br>
+<br>
+<div class="row profile">
+  <div class="col-md-3">
+      <div class="profile-sidebar">
+        <form action="" method="post" enctype="multipart/form-data">
+          <div class="profile-usertitle">
+             
+                  {% csrf_token %}
+                  {{form.as_p}}
+                  
+              
+          </div>
+          <!-- END SIDEBAR USER TITLE -->
+          <!-- SIDEBAR BUTTONS -->
+          <div class="profile-userbuttons">
+            <button type="submit" class="btn btn-primary btn-sm">Update</button>
+          </div>
+        </form>
+      </div>
+      </div>
+      <div class="col-md-9">
+          <div class="profile-content">
+            <table class="table">
+              <thead>
+      
+                <tr>
+                  <th scope="col">Name</th>
+                  <td>{{order.customer.full_name}}</td>
+                </tr>
+                <tr>
+                  <th scope="col">Product</th>
+                  <td>{{order.product}}</td>
+                </tr>
+                <tr>
+                  <th scope="col">Amount</th>
+                  <td>{{order.amount}}</td>
+                </tr>
+                <tr>
+                  <th scope="col">Payed On</th>
+                  <td>{{order.date_ordered}}</td>
+                </tr>
+                 <tr>
+                  <th scope="col">Status</th>
+                  <td>{{order.status}}</td>
+                  </tr>
+                  </thead>
+                  
+
+                  </table>
+                  {%if order.proof %}
+                  <img src="{{order.proof.url}}" height="200px" class="img-responsive" alt=""/>
+                  <td><a href="{{order.proof.url}}">view proof </a></td>
+                  {%endif%}
+          </div>
+         
+      </div>
+      
+      </div>
+      
+{% endblock%}

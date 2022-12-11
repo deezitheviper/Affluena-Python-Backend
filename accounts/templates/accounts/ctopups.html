@@ -1,0 +1,97 @@
+{%extends 'cms/base.html' %}
+{%block content%}
+
+
+<hr/>
+
+<div class="row">
+    
+   <div class="col">
+    {% if messages %}
+    <ul class="messages">
+    {% for message in messages %}
+    <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    <h5>Compound Contribution Top Ups</h5>
+    <hr>
+    <div class="card card-body">
+      <h6 class="card-subtitle mb-2 text-muted">Search</h6>
+<form method="GET">
+    {{myfilter.form}}
+    <input type="submit" value="Filter" class="btn btn-primary">
+</form>
+  </div>
+    <div class="card card-body">
+      <table class="table">
+        <thead>
+
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Proof</th>
+            <th scope="col">On</th>
+            <th scope="col">Status</th>
+            <th scope="col">Update</th>
+            <th scope="col">Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for compound in compounds %}
+          <tr>
+            <td>{{compound.user.full_name}}</td>
+            <td>{{compound.amount}}</td>
+            {%if compound.proof%}
+            <td><a href="{{compound.proof.url}}">view proof </a></td>
+            {%else%}
+            <td>{{compound.proof}}</td>
+            
+            {%endif%}
+            <td>{{compound.topup_date}}</td>
+            <td>{{compound.status}}</td>
+            
+            {%if request.user.is_superuser %}
+            <td><a href="{%url 'accounts:updateC' pk=compound.pk c_pk=compound.user.pk %}"
+              class="btn btn-success btn-sm">Update</a></td>
+          <td><a href="{%url 'accounts:deleteC' pk=compound.pk %}"
+              class="btn btn-danger btn-sm">Remove</a></td>
+            {%else%}
+            <td><a href="{%url 'accounts:updateC' pk=compound.pk c_pk=compound.user.pk %}"
+                class="btn btn-success disabled btn-sm">Update</a></td>
+            <td><a href="{%url 'accounts:deleteC' pk=compound.pk %}"
+                class="btn btn-danger disabled btn-sm">Remove</a></td>
+                {%endif%}
+          </tr>
+          {%endfor%}
+   
+        </tbody>
+      </table>
+    </div>
+   </div>
+</div>   
+</div>
+<br/>
+<hr>
+{% if compounds.has_other_pages %}
+<div class="pagination">
+{% if compounds.has_previous %}
+  <a href="?page={{ compounds.previous_page_number }}">&laquo;</a>
+{% else %}
+  <a class="disabled"><span>&laquo;</span>
+{% endif %}
+{% for i in compounds.paginator.page_range %}
+  {% if compounds.number == i %}
+    <a class="active"><span>{{ i }} <span class="sr-only">(current)</span></span>
+  {% else %}
+    <a href="?page={{ i }}">{{ i }}</a>
+  {% endif %}
+{% endfor %}
+{% if compounds.has_next %}
+  <a href="?page={{ compounds.next_page_number }}">&raquo;</a>
+{% else %}
+  <a class="disabled"><span>&raquo;</span>
+{% endif %}
+</div>
+{% endif %}
+{%endblock%}
