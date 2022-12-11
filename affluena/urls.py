@@ -28,7 +28,7 @@ urlpatterns = [
     path('password-changed/', auth_views.PasswordResetCompleteView.as_view(template_name='cms/password_reset_complete.html'),name='password_reset_complete'),
     path('staff-logout',views.user_logout, name='logout'),
     re_path(r"^mfa/authtoken/", include((
-    "Affluena.authToken.urls",'app_name'), namespace="mfa-authtoken:login")),
+    "affluena.authToken.urls",'app_name'), namespace="mfa-authtoken:login")),
     path("email/request/",EmailChallengeRequestDetail.as_view(),
     name="your_challenge_method_request-detail"
 ),
@@ -41,7 +41,7 @@ urlpatterns = [
     path('auth/registration/', RegisterView.as_view(), name='rest_register' ),
     re_path(r'^rest-auth/', include('rest_auth.urls')),
     path('rest-auth/registration/', include('rest_auth.registration.urls')),
-    path('api/',include('Affluena.api.urls')),
+    path('api/',include('affluena.api.urls')),
     path('resend-verification-email/', NewEmailConfirmation.as_view(), name='resend-email-confirmation'),
     path('password/reset/', PasswordResetView.as_view(),
         name='rest_password_reset'),

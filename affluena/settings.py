@@ -95,7 +95,7 @@ REST_FRAMEWORK = {
     ),
 }
 
-WSGI_APPLICATION = 'Affluena.wsgi.application'
+WSGI_APPLICATION = 'affluena.wsgi.application'
 DEUX = {
     "STEP_SIZE": 500,
     "SEND_MFA_EMAIL_FUNC": "affluena.views.send_mfa_code_email_message",
@@ -159,21 +159,21 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_EMAIL_REQUIRED = True
-AUTH_USER_MODEL = 'Affluena.User'
+AUTH_USER_MODEL = 'affluena.User'
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_UNIQUE_USERNAME = False
 ACCOUNT_USERNAME_VALIDATORS = 'home.settings.validator.custom_usename_validator'
 
 REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER':'Affluena.serializers.UserSerializer',
-    'TOKEN_SERIALIZER':'Affluena.serializers.TokenSerializer',
-    'LOGIN_SERIALIZER': 'Affluena.serializers.Login'
+    'USER_DETAILS_SERIALIZER':'affluena.serializers.UserSerializer',
+    'TOKEN_SERIALIZER':'affluena.serializers.TokenSerializer',
+    'LOGIN_SERIALIZER': 'affluena.serializers.Login'
     
 }
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 REST_AUTH_REGISTER_SERIALIZERS = {
-    'REGISTER_SERIALIZER':'Affluena.serializers.SignupSerializer'
+    'REGISTER_SERIALIZER':'affluena.serializers.SignupSerializer'
 }
 CORS_ALLOW_HEADERS = list(default_headers) + [
     'X-CSRFTOKEN',
@@ -182,7 +182,7 @@ CORS_ALLOW_HEADERS = list(default_headers) + [
 OLD_PASSWORD_FIELD_ENABLED = True
 SIMPLE_HISTORY_HISTORY_CHANGE_REASON_USE_TEXT_FIELD=True
 
-ACCOUNT_ADAPTER = 'Affluena.accountadapter.CustomAccountAdapter'
+ACCOUNT_ADAPTER = 'affluena.accountadapter.CustomAccountAdapter'
 CUSTOM_ACCOUNT_CONFIRM_EMAIL_URL = "/verify-email/{0}"
 
 DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER')
@@ -193,9 +193,9 @@ AXES_COOLOFF_TIME = timedelta(minutes=5)
 AXES_FAILURE_LIMIT = 6
 CRONTAB_COMMAND_SUFFIX = '2>&1'
 CRONJOBS = [
-    ('* * * * *', 'Affluena.cron.check_cron','>> ~/cron_job.log'),
-    ('*/2 * * * *', 'Affluena.cron.delete_users','>> ~/delete_cron_job.log'),
-    ('0 1 * * *', 'Affluena.cron.payout','>> ~/payout.log')
+    ('* * * * *', 'affluena.cron.check_cron','>> ~/cron_job.log'),
+    ('*/2 * * * *', 'affluena.cron.delete_users','>> ~/delete_cron_job.log'),
+    ('0 1 * * *', 'affluena.cron.payout','>> ~/payout.log')
 ]
 
  
