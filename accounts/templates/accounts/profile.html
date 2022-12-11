@@ -1,0 +1,65 @@
+{% extends 'cms/base.html' %}
+{%block content %}
+<hr>
+<div class="card text-white bg-info mb-3">
+    <h5 class="card-header">Dashboard</h5>
+</div>
+  
+<div class="row">
+    <div class="col">
+        <div class="card text-white bg-info mb-3">
+            <h5 class="card-header">Total Orders</h5>
+            <div class="card-body">
+              <h3 class="card-text">{{total_o}}</h3>      
+            </div>
+          </div>
+    </div>
+
+
+    <div class="col">
+        <div class="card text-white bg-info mb-3">
+            <h5 class="card-header">Orders Completed</h5>
+            <div class="card-body">
+              <h3 class="card-text">{{delivered}}</h3>      
+            </div>
+          </div>
+    </div>
+
+
+
+    <div class="col">
+        <div class="card text-white bg-info mb-3">
+            <h5 class="card-header">Orders Pending</h5>
+            <div class="card-body">
+              <h3 class="card-text">{{pending}}</h3>             
+            </div>
+          </div>
+    </div>
+</div>
+<br>
+<div class="col md-7">  
+  <h5>Orders</h5>
+  <hr>
+      <div class="card card-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Product</th>
+              <th scope="col">Ordered On</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>  
+          <tbody>
+            {%for order in orders %}
+            <tr>
+              <td>{{order.product}}</td>
+              <td>{{order.date_ordered}}</td>
+              <td>{{order.status}}</td>
+            </tr>
+            {%endfor%}
+          </tbody>         
+        </table>
+    </div> 
+</div> 
+</div>
+{%endblock%}

@@ -1,0 +1,15 @@
+{% extends 'cms/base.html' %}
+{%block content%}
+<br/>
+<h6>You are about to {%if item.is_active%}Disable{%else%}Activate{%endif%} {{item.full_name}}'s account </h6>
+<p>Leave a Message or Remark for the user, which will be sent to the user's email</p>
+<form method="POST" action="{% url 'accounts:disable-user' pk=item.pk %}">
+    {% csrf_token %}
+    {{form.as_p}}
+    {%if item.is_active%}
+    <button class="btn btn-danger" type="submit">Disable</button>
+    {%else%}
+    <button class="btn btn-danger" type="submit">Activate</button>
+    {%endif%}
+</form>
+{%endblock%}

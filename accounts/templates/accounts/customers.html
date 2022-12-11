@@ -1,0 +1,94 @@
+
+{%extends 'cms/base.html' %}
+{%block content%}
+
+
+<hr>
+<div class="row">
+  <div class="col">
+    {% if messages %}
+    <ul class="messages">
+    {% for message in messages %}
+    <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    <h5>Members</h5>
+    <hr>
+    <div class="card card-body">
+        <h6 class="card-subtitle mb-2 text-muted">Search</h6>
+  <form method="GET">
+      {{myfilter.form}}
+      <input type="submit" value="Filter" class="btn btn-primary">
+  </form>
+    </div>
+    <div class="card card-body">
+      
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Username</th>
+            <th scope="col">Name</th>
+            <th scope="col">Simple</th>
+            <th scope="col">Compound</th>
+            <th scope="col">Capital</th>
+            <th scope="col">Date Joined</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for customer in customers %}
+          <tr>
+            <td>
+              {{customer.username}}
+            </td>
+            <td>
+                {{customer.full_name}}
+              </td>
+              <td>
+                {{customer.simple_con}}
+              </td>
+              <td>
+                {{customer.compounding}}
+              </td>
+              <td>
+                {{customer.account_balance}}
+              </td>
+
+            <td>
+              {{customer.date_joined}}
+            </td>
+            <td><a class="btn btn-primary" href="{% url 'accounts:customer' pk=customer.pk %}">View</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <br/>
+  <hr>
+  {% if customers.has_other_pages %}
+<div class="pagination">
+  {% if customers.has_previous %}
+    <a href="?page={{ customers.previous_page_number }}">&laquo;</a>
+  {% else %}
+    <a class="disabled"><span>&laquo;</span>
+  {% endif %}
+  {% for i in customers.paginator.page_range %}
+    {% if customers.number == i %}
+      <a class="active"><span>{{ i }} <span class="sr-only">(current)</span></span>
+    {% else %}
+      <a href="?page={{ i }}">{{ i }}</a>
+    {% endif %}
+  {% endfor %}
+  {% if customers.has_next %}
+    <a href="?page={{ customers.next_page_number }}">&raquo;</a>
+  {% else %}
+    <a class="disabled"><span>&raquo;</span>
+  {% endif %}
+</div>
+</div>
+
+{% endif %}
+{%endblock%}

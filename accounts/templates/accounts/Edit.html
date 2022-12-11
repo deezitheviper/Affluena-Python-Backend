@@ -1,0 +1,45 @@
+{% extends "cms/base.html" %}
+{%load static %}
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="{%static '/css/master.css' %}">
+</head>
+<br>
+<br>
+<div class="row profile">
+    <div class="col-md-3">
+        <div class="profile-sidebar">
+            <div class="profile-usertitle">
+            
+                <div class="profile-usertitle-name">
+                    {{request.user}}
+                </div>
+                {%if request.user.is_superuser %}
+                <div class="profile-usertitle-job">
+                    Admin
+                </div>
+                {%else%}
+                <div class="profile-usertitle-job">
+                    Customer
+                </div>
+                {%endif%}
+
+              
+            </div>
+            <!-- END SIDEBAR USER TITLE -->
+            <!-- SIDEBAR BUTTONS -->
+            
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="profile-content">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form.as_p}}
+                <input type="submit" class="btn-danger btn" value="Update">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

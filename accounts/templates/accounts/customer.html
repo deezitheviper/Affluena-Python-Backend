@@ -1,0 +1,229 @@
+{% extends "cms/base.html" %}
+{%load static %}
+{%block content %}
+<head>
+  <link rel="stylesheet" href="{%static '/css/master.css' %}">
+</head>
+<div>
+  <hr/>
+  {% if messages %}
+  <ul class="messages">
+  {% for message in messages %}
+  <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+  {% endfor %}
+  </ul>
+  {% endif %}
+  </div>
+<div class="row" style="margin-top: 30px;">
+
+    <div class="col-md-4">
+       
+        <div class="card">
+            <div class="card-body">
+         
+              <div class="card-title">
+                <h6 class="profile-userpic">
+                 
+                  {%if customer.profile_pic %}
+                  <img src="{{customer.profile_pic.url}}" class="img-responsive" alt="">
+            {%else%}
+            <img src="{% static 'Affluena-icon.png' %}" height="100" alt="" />
+            {%endif%}
+                  <span class="notify-badge badge badge-info">{{group}}</span> {%if customer.is_active%}<span class="badge badge-success">Active</span>{%else%}
+                  <span  class="notify-badge badge badge-danger">Disabled</span>{%endif%}
+                     </div>
+                
+                    </h6>
+              
+              <p>{{customer.full_name}}</p>
+              <p>username: {{customer.username}}</p>
+              <p>Referral Code: {{customer.profile.code}}</p>
+              <p>Referred By: {{customer.profile.referredBy.full_name}}</p>
+              <a class="btn btn-primary btn-sm" href="{%url 'accounts:update_c' customer.pk %}" class="card-link">Update Member</a>
+              {% if request.user.is_superuser %}
+              <a class="btn btn-primary btn-sm" href="{% url 'accounts:message' customer.pk %}" class="card-link">Message</a>
+              {%if customer.is_superuser %}
+              <div></div>
+              {%else%}
+              <a class="btn btn-danger btn-sm" href="{%url 'accounts:delete-user' pk=customer.pk %}" class="card-link">Delete User</a>
+              {%endif%}
+              {%endif%}
+              <hr/>
+           {% if request.user.is_superuser %}
+           <div>
+            {%if customer.is_superuser %}
+            <div></div>
+            {%else%}
+           <a class="btn btn-primary btn-sm" href="{%url 'accounts:makeAdmin' customer.pk %}" class="card-link">Make Admin</a>
+           <a class="btn btn-primary btn-sm" href="{%url 'accounts:removeAdmin' customer.pk %}" class="card-link">remove Admin</a>
+          {%endif%}
+          {%if customer.is_superuser %}
+          <div></div>
+          {%else%}
+           {%if customer.is_active %}
+           <a class="btn btn-danger btn-sm" href="{%url 'accounts:disable-user' customer.pk %}" class="card-link">Disable </a>
+      {%else%}
+      <a class="btn btn-success btn-sm" href="{%url 'accounts:disable-user' customer.pk %}" class="card-link">Activate </a>
+  {%endif%}
+      {%endif%}
+          </div>
+          {%endif%}
+            </div>
+          </div>        
+    </div>
+    <div class="col-md-8">
+      <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Contact Information</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{customer.email}}</h6>
+              <h6 class="card-subtitle mb-2 text-muted">{{customer.phone}}</h6>
+            </div>
+          </div>        
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Total Payment Submission</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{customer_o}}</h6>
+            </div>
+          </div>        
+    </div>
+    </div>
+    <hr/>
+    <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Total Simple Contributions</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{simple_c}}</h6>
+            
+          </div>
+        </div>        
+  </div>
+  <div class="col-md-6">
+      <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Total Compound Contributions</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{compound_c}}</h6>
+          </div>
+        </div>        
+  </div>
+    </div>
+</div>
+</div>
+
+<div class="row" style="margin-top: 30px;">
+
+  <div class="col md">
+    <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Capital</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{capital}}</h6>
+        </div>
+      </div>        
+  </div>
+  <div class="col md">
+    <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">ROI Earned</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{profit}}</h6>
+        </div>
+      </div>        
+</div>
+
+<div class="col md">
+  <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Referral Earning</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{refEarn}}</h6>
+      </div>
+    </div>        
+</div>
+
+<div class="col md">
+  <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Referred</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{refCount}}</h6>
+        <a href="{%url 'accounts:referrals' pk=customer.pk %}"
+          >View Downline</a>
+      </div>
+    </div>        
+</div>
+</div>
+<br>
+<div class="card card-body">
+  <h6 class="card-subtitle mb-2 text-muted">Search</h6>
+  <form method="GET">
+      {{myfilter.form}}
+      <input type="submit" value="Filter" class="btn btn-primary">
+  </form>
+</div>
+<div class="col-md">  
+  <br>
+  <br>
+  <hr>
+  <h6 class="card-subtitle mb-2 text-muted">Payment Submissions</h6>
+    
+        <div class="card card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Ordered On</th>
+                <th scope="col">Status</th>
+                <th scope="col">Update</th>
+                <th scope="col">Remove</th>
+              </tr>
+            </thead>  
+            <tbody>
+              {%for order in orders %}
+              <tr>
+                <td>{{order.product}}</td>
+                <td>{{order.amount}}</td>
+                <td>{{order.date_ordered}}</td>
+                <td>{{order.status}}</td>
+                {%if request.user.is_superuser %}
+                <td><a href="{%url 'accounts:update' pk=order.pk c_pk=order.customer.pk %}"
+                  class="btn btn-success btn-sm">Update</a></td>
+              <td><a href="{%url 'accounts:delete' pk=order.pk %}"
+                  class="btn btn-danger btn-sm">Remove</a></td>
+                {%else%}
+                <td><a href="{%url 'accounts:update' pk=order.pk c_pk=order.customer.pk %}"
+                    class="btn btn-success disabled btn-sm">Update</a></td>
+                <td><a href="{%url 'accounts:delete' pk=order.pk %}"
+                    class="btn btn-danger disabled btn-sm">Remove</a></td>
+                    {%endif%}
+              </tr>
+              {%endfor%}
+            </tbody>         
+          </table>
+      </div> 
+</div> 
+<br/>
+<hr>
+{% if orders.has_other_pages %}
+<div class="pagination">
+{% if orders.has_previous %}
+  <a href="?page={{ orders.previous_page_number }}">&laquo;</a>
+{% else %}
+  <a class="disabled"><span>&laquo;</span>
+{% endif %}
+{% for i in orders.paginator.page_range %}
+  {% if orders.number == i %}
+    <a class="active"><span>{{ i }} <span class="sr-only">(current)</span></span>
+  {% else %}
+    <a href="?page={{ i }}">{{ i }}</a>
+  {% endif %}
+{% endfor %}
+{% if orders.has_next %}
+  <a href="?page={{ orders.next_page_number }}">&raquo;</a>
+{% else %}
+  <a class="disabled"><span>&raquo;</span>
+{% endif %}
+</div>
+{% endif %}
+{%endblock%}

@@ -1,0 +1,270 @@
+{%extends 'cms/base.html' %}
+{%block content%}
+
+{% include 'accounts/status.html' %}
+
+<hr>
+<div class="row">
+  <div class="col-md-5">
+    {% if messages %}
+    <ul class="messages">
+    {% for message in messages %}
+    <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    <h5>Members</h5>
+    <hr>
+    <div class="card card-body">
+      
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Member</th>
+            <th scope="col">Info</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for customer in customers %}
+          <tr>
+            <td>
+              {{customer.username}}
+            </td>
+            <td>
+              {{customer.phone}}
+            </td>
+            <td><a href="{% url 'accounts:customer' pk=customer.pk %}">View</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="{% url 'accounts:members' %}" class="btn btn-primary">View all members</a>
+    </div>
+    
+  </div>
+
+  <div class="col-md-7">
+    <h5>Due Payouts</h5>
+    <hr>
+    <div class="card card-body">
+      
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Member</th>
+            <th scope="col">Due On</th>
+            <th scope="col">Status</th>
+            <th scope="col">Update</th>
+            <th scope="col">Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for payout in payouts %}
+          <tr>
+            <td>{{payout.user}}</td>
+            <td>{{payout.due}}</td>
+            <td>{{payout.status}}</td>
+            {%if request.user.is_superuser %}
+            <td><a href="{%url 'accounts:update-payout' pk=payout.pk c_pk=payout.user.pk %}"
+              class="btn btn-success btn-sm">Update</a></td>
+          <td><a href="{%url 'accounts:delete-payout' pk=payout.pk %}"
+              class="btn btn-danger btn-sm">Remove</a></td>
+            {%else%}
+            <td><a href="{%url 'accounts:update-payout' pk=payout.pk c_pk=payout.user.pk %}"
+              class="btn btn-success  disabled btn-sm">Update</a></td>
+          <td><a href="{%url 'accounts:delete-payout' pk=payout.pk %}"
+              class="btn btn-danger disabled btn-sm">Remove</a></td>
+                {%endif%}
+            
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+      <a href="{% url 'accounts:payouts'  %}" class="btn btn-primary">View all Payouts</a>
+    </div>
+
+
+
+
+
+  </div>
+</div>
+
+<hr />
+
+
+  <div class="col md-9">
+    <h5>Recent Payment Submission</h5>
+    <hr>
+    <div class="card card-body">
+      
+      <table class="table">
+        <thead>
+
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Product</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Proof</th>
+            <th scope="col">Ordered On</th>
+            <th scope="col">Status</th>
+            <th scope="col">Update</th>
+            <th scope="col">Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for order in orders %}
+          <tr>
+            <td>{{order.customer.full_name}}</td>
+            <td>{{order.product}}</td>
+            <td>{{order.amount}}</td>
+            {%if order.proof%}
+            <td><a href="{{order.proof.url}}">view proof </a></td>
+            {%else%}
+            <td>{{order.proof}}</td>
+            
+            {%endif%}
+            <td>{{order.date_ordered}}</td>
+            <td>{{order.status}}</td>
+            
+            {%if request.user.is_superuser %}
+            <td><a href="{%url 'accounts:update' pk=order.pk c_pk=order.customer.pk %}"
+              class="btn btn-success btn-sm">Update</a></td>
+          <td><a href="{%url 'accounts:delete' pk=order.pk %}"
+              class="btn btn-danger btn-sm">Remove</a></td>
+            {%else%}
+            <td><a href="{%url 'accounts:update' pk=order.pk c_pk=order.customer.pk %}"
+                class="btn btn-success disabled btn-sm">Update</a></td>
+            <td><a href="{%url 'accounts:delete' pk=order.pk %}"
+                class="btn btn-danger disabled btn-sm">Remove</a></td>
+                {%endif%}
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+      <a href="{%url 'accounts:orders' %}" class="btn btn-primary">View all Contributions</a>
+    </div>
+
+    <hr/>
+    <br/>
+
+    <div class="row">
+    
+      <div class="col md-6">
+        <h5>Recent Simple Contribution Top Ups</h5>
+        <hr>
+     
+        <div class="card card-body">
+          <table class="table">
+            <thead>
+    
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Proof</th>
+                <th scope="col">On</th>
+                <th scope="col">Status</th>
+                <th scope="col">Update</th>
+                <th scope="col">Remove</th>
+              </tr>
+            </thead>
+            <tbody>
+              {%for simple in simples %}
+              <tr>
+                <td>{{simple.user.full_name}}</td>
+                <td>{{simple.amount}}</td>
+                {%if simple.proof%}
+                <td><a href="{{simple.proof.url}}">view proof </a></td>
+                {%else%}
+                <td>{{simple.proof}}</td>
+                
+                {%endif%}
+              
+            {%if simple.topup_date %}
+            <td>{{simple.topup_date}}</td>
+            {%else%}
+            <td>{{simple.date_added}}</td>
+            {%endif%}
+                <td>{{simple.status}}</td>
+                
+                {%if request.user.is_superuser %}
+                <td><a href="{%url 'accounts:updateS' pk=simple.pk c_pk=simple.user.pk %}"
+                  class="btn btn-success btn-sm">Update</a></td>
+              <td><a href="{%url 'accounts:deleteS' pk=simple.pk %}"
+                  class="btn btn-danger btn-sm">Remove</a></td>
+                {%else%}
+                <td><a href="{%url 'accounts:updateS' pk=simple.pk c_pk=simple.user.pk %}"
+                    class="btn btn-success disabled btn-sm">Update</a></td>
+                <td><a href="{%url 'accounts:deleteS' pk=simple.pk %}"
+                    class="btn btn-danger disabled btn-sm">Remove</a></td>
+                    {%endif%}
+              </tr>
+              {%endfor%}
+       
+            </tbody>
+          </table>
+          <a href="{%url 'accounts:topups' %}" class="btn btn-primary">View all </a>
+        </div>
+       </div>
+    
+  
+    
+       <!--<div class="col md-6">
+        <br/>
+        <br/>
+        <h5>Recent Compound Contribution Top Ups</h5>
+        <hr>
+      
+        <div class="card card-body">
+          <table class="table">
+            <thead>
+    
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Proof</th>
+                <th scope="col">On</th>
+                <th scope="col">Status</th>
+                <th scope="col">Update</th>
+                <th scope="col">Remove</th>
+              </tr>
+            </thead>
+            <tbody>
+              {%for compound in compounds %}
+              <tr>
+                <td>{{compound.user.full_name}}</td>
+                <td>{{compound.amount}}</td>
+                {%if compound.proof%}
+                <td><a href="{{compound.proof.url}}">view proof </a></td>
+                {%else%}
+                <td>{{compound.proof}}</td>
+                
+                {%endif%}
+                <td>{{compound.topup_date}}</td>
+                <td>{{compound.status}}</td>
+                
+                {%if request.user.is_superuser %}
+                <td><a href="{%url 'accounts:updateC' pk=compound.pk c_pk=compound.user.pk %}"
+                  class="btn btn-success btn-sm">Update</a></td>
+              <td><a href="{%url 'accounts:deleteC' pk=compound.pk %}"
+                  class="btn btn-danger btn-sm">Remove</a></td>
+                {%else%}
+                <td><a href="{%url 'accounts:updateC' pk=compound.pk c_pk=compound.user.pk %}"
+                    class="btn btn-success disabled btn-sm">Update</a></td>
+                <td><a href="{%url 'accounts:deleteC' pk=compound.pk %}"
+                    class="btn btn-danger disabled btn-sm">Remove</a></td>
+                    {%endif%}
+              </tr>
+              {%endfor%}
+       
+            </tbody>
+          </table>
+          <a href="{%url 'accounts:ctopups' %}" class="btn btn-primary">View all </a>
+        </div>
+        <hr/>
+        <br/>
+       </div>
+-->
+   
+  {%endblock%}
