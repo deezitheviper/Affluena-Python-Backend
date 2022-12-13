@@ -395,7 +395,8 @@ class SignupSerializer(RegisterSerializer):
         return {
             'full_name': self.validated_data.get('full_name',''),
             'username': self.validated_data.get('username', ''),
-            'password1': self.validated_data.get('password', ''),
+            'password1': self.validated_data.get('password1', ''),
+            'password2': self.validated_data.get('password2', ''),
             'email': self.validated_data.get('email', ''),
             'phone': self.validated_data.get('phone', ''),
             'code': self.validated_data.get('code', ''),
@@ -439,8 +440,6 @@ class SignupSerializer(RegisterSerializer):
             user.referral_code = self.data.get('code') 
         user.is_super = False
         user.full_name = self.data.get('name')
-        user.state = self.data.get('state')
-        user.city = self.data.get('city')
         user.phone = self.data.get('phone')
   
         try:

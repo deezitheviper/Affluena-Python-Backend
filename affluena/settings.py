@@ -149,9 +149,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-#STATICFILES_DIRS = [os.path.join(BASE_DIR, 'build/static/'),os.path.join(BASE_DIR, 'buildx/static/'),os.path.join(BASE_DIR, 'templates/static'),os.path.join(BASE_DIR, 'templates')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'build/static/'),os.path.join(BASE_DIR, 'buildx/static/'),os.path.join(BASE_DIR, 'templates/static'),os.path.join(BASE_DIR, 'templates')]
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'templates/static'),os.path.join(BASE_DIR, 'templates')]
+
 
 
 ACCOUNT_EMAIL_SUBJECT_PREFIX = 'Affluena - '
@@ -187,7 +187,6 @@ ACCOUNT_ADAPTER = 'affluena.accountadapter.CustomAccountAdapter'
 CUSTOM_ACCOUNT_CONFIRM_EMAIL_URL = "/verify-email/{0}"
 
 DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER')
-ACCOUNT_EMAIL_SUBJECT_PREFIX = "Affluena"
 AXES_ENABLED = False
 AXES_COOLOFF_TIME = timedelta(minutes=5)
 

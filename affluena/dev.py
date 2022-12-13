@@ -1,7 +1,7 @@
 '''Use this for development'''
 
 from .settings import *
-ALLOWED_HOSTS = ['127.0.0.1','localhost:8000','localhost:3002']
+ALLOWED_HOSTS = ['127.0.0.1','http://localhost:3000','localhost:3000']
 SITE_ID = 2
 WSGI_APPLICATION = 'affluena.wsgi.application'
 

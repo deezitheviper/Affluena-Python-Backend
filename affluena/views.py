@@ -120,6 +120,7 @@ class RegisterView(APIView):
 
     def perform_create(self, serializer):
         user = serializer.save(self.request)
+        print("user")
         if getattr(settings, 'REST_USE_JWT', False):
             self.token = jwt_encode(user)
         else:
