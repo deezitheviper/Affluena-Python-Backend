@@ -17,7 +17,8 @@ from rest_auth.views import PasswordResetConfirmView
 urlpatterns = [ 
     
     path('account/', include('accounts.urls')),
-    path('staff-board', views.home, name='board'),
+    
+    path('admin-board', views.home, name='board'),
     path('phonerequest/',PhoneRequestDetail.as_view() ),
     path('phoneverifyrequest/',PhoneVerifyDetail.as_view() ),
     path('staff-login',views.user_login, name='login'),
@@ -27,24 +28,26 @@ urlpatterns = [
     path('confirm-password/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name='cms/password_reset_confirm.html'), name='password_reset_confirm'),
     path('password-changed/', auth_views.PasswordResetCompleteView.as_view(template_name='cms/password_reset_complete.html'),name='password_reset_complete'),
     path('staff-logout',views.user_logout, name='logout'),
-    re_path(r"^mfa/authtoken/", include((
+      re_path(r"^mfa/authtoken/", include((
     "affluena.authToken.urls",'app_name'), namespace="mfa-authtoken:login")),
+
     path("email/request/",EmailChallengeRequestDetail.as_view(),
     name="your_challenge_method_request-detail"
 ),
-    path("email/verify/",EmailChallengeVerifyDetail.as_view(),
+path("email/verify/",EmailChallengeVerifyDetail.as_view(),
     name="your_challenge_method_verify-detail"),
-    path('user-detail/', UserDetailsView.as_view()),
+    path('user-detailx/', UserDetailsView.as_view()),
     path('contact-us/', Contact.as_view(), name='contact-us'),
+    path('api-auth/', include('rest_framework.urls')),
+    path('sendconfirmationemail/', EmailConfirmation.as_view(), name='send-email-confirmation'),
     path('mail/', EmailView.as_view()),
     re_path(r'update-profile/(?P<pk>\d+)/', UserPartialUpdateView.as_view(), name="updateProfile"),
-    path('auth/registration/', RegisterView.as_view(), name='rest_register' ),
-    re_path(r'^rest-auth/', include('rest_auth.urls')),
-    path('rest-auth/registration/', include('rest_auth.registration.urls')),
-    path('api/',include('affluena.api.urls')),
+    path('rest-auth/registration/', RegisterView.as_view(), name='rest_register' ),
+    path('api/', include('affluena.api.urls')),
     path('resend-verification-email/', NewEmailConfirmation.as_view(), name='resend-email-confirmation'),
     path('password/reset/', PasswordResetView.as_view(),
         name='rest_password_reset'),
+ 
     re_path(r'^account-confirm-email/', VerifyEmailView.as_view(),
      name='account_email_verification_sent'), 
     path('admin/', admin.site.urls),
