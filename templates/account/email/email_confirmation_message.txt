@@ -1,0 +1,18 @@
+
+{% load account %}
+{% load i18n %}
+
+{% block content %}{% autoescape off %}{% user_display user as user_display %}{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}
+Dear valued member, {{ user_display }},
+
+Thank you for registering with our service! In order to complete your registration and verify your email address, please click on the link below:
+
+{{ activate_url }}
+
+If you did not register with our service, please ignore this email.
+
+Thank you for choosing our service, and we look forward to providing you with a great experience.
+
+Best regards,
+Affluena.
+{% endblocktrans %}{% endautoescape %}{% endblock %}
