@@ -34,9 +34,9 @@ urlpatterns = [
     path("email/request/",EmailChallengeRequestDetail.as_view(),
     name="your_challenge_method_request-detail"
 ),
-path("email/verify/",EmailChallengeVerifyDetail.as_view(),
+    path("email/verify/",EmailChallengeVerifyDetail.as_view(),
     name="your_challenge_method_verify-detail"),
-    path('user-detailx/', UserDetailsView.as_view()),
+    path('user-detail/', UserDetailsView.as_view()),
     path('contact-us/', Contact.as_view(), name='contact-us'),
     path('api-auth/', include('rest_framework.urls')),
     path('sendconfirmationemail/', EmailConfirmation.as_view(), name='send-email-confirmation'),
@@ -47,12 +47,12 @@ path("email/verify/",EmailChallengeVerifyDetail.as_view(),
     path('resend-verification-email/', NewEmailConfirmation.as_view(), name='resend-email-confirmation'),
     path('password/reset/', PasswordResetView.as_view(),
         name='rest_password_reset'),
- 
+    re_path(r'^rest-auth/', include('rest_auth.urls')),
     re_path(r'^account-confirm-email/', VerifyEmailView.as_view(),
      name='account_email_verification_sent'), 
     path('admin/', admin.site.urls),
     re_path(r'user/*', TemplateView.as_view(template_name='indeex.html')),
-    re_path(r'password-reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})',
+    re_path(r'password-reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})',
         TemplateView.as_view(template_name='index.html'),
         name='password_reset_confirm')
     
