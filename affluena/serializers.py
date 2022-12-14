@@ -457,7 +457,7 @@ class TokenSerializer(serializers.ModelSerializer):
     
     class Meta:
         model= Token 
-        fields = ('key','user','user_detail')
+        fields = ('key','user_detail')
 
     def get_user_detail(self, obj):
         serializer_data = UserSerializer(obj.user).data
@@ -475,7 +475,7 @@ class TokenSerializer(serializers.ModelSerializer):
         compounding = serializer_data.get('compounding')
         withdrawn = serializer_data.get('totalWithdrawn')
         time = serializer_data.get('date_joined')
-        date = datetime.strptime(time, '%Y-%m-%dT%H:%M:%S.%fZ').strftime('%B')
+        date = datetime.strptime(time, '%Y-%m-%dT%H:%M:%S.%fZ').strftime('%d %B %Y')
         balance = serializer_data.get('account_balance')
         last = serializer_data.get('last_login')
         last_login = datetime.strptime(last, '%Y-%m-%dT%H:%M:%S.%fZ').strftime('%I:%M%p on %d %B %Y')
@@ -505,6 +505,7 @@ class TokenSerializer(serializers.ModelSerializer):
             "address": address,
             "city": city,
             "email_verified": email_verified,
-            "withdrawn": withdrawn
+            "withdrawn": withdrawn,
+            "userId" : user.id
             
         }
