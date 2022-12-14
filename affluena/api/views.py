@@ -24,7 +24,7 @@ from affluena.services import *
 
 def send_phone(code, phone):
     url = "https://api.80kobosms.com/v2/app/sendsms"
-    access_token = "JEWvEBPrk6ffoiSl0GGGsTfIGl9UROcNTvbwF0XUK10mxbNkp4qAW6PdAGeM"
+    access_token = ""
     message = "Your Withdrawal Confirmation code: {}".format(code)
     
     PARAMS = {'message':message,'sender_name':"Affluena",'recipients':phone}

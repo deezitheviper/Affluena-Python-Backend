@@ -47,6 +47,7 @@ class User(AbstractUser):
     bank_name = models.CharField(max_length=200,blank=True, null=True)
     account_no = models.CharField(max_length=200,blank=True, null=True)
     account_name = models.CharField(max_length=300,blank=True, null=True)
+    two_FA = models.BooleanField(default=False)
     is_super = models.BooleanField(default=False)
     contribution_amount = models.DecimalField(max_digits=15, decimal_places=2,default=0.00)
     contribution_type = models.CharField(max_length=200, choices=STATUS, blank=True, null=True)
