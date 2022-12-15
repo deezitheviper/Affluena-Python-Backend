@@ -53,7 +53,7 @@ class OrderSerializer(serializers.ModelSerializer):
 class PostOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ("customer","product","amount","status","txid","id","tx_ref","flw_ref","duration","proof","first")        
+        fields = ("customer","product","amount","status","txid","id","tx_ref","flw_ref","duration")        
 
 class TopUpSerializer(serializers.ModelSerializer):
     class Meta:

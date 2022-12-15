@@ -27,7 +27,8 @@ from email.mime.base import MIMEBase
 from email import encoders
 from allauth.account.signals import email_confirmed
 from uuid import uuid4
-from datetime import datetime, timezone
+from datetime import datetime
+from django.utils import timezone
 # Create your models here.
  
 class User(AbstractUser):
@@ -464,6 +465,8 @@ class Order(models.Model):
     amount = models.DecimalField(max_digits=15, decimal_places=2,default=0.00)
     proof = models.ImageField(blank=True, null=True, upload_to="proof")
     date_ordered = models.DateTimeField(auto_now_add=True)
+    created     = models.DateTimeField(editable=False)
+    modified    = models.DateTimeField()
     txid = models.CharField(max_length=300, blank=True, null=True)
     tx_ref = models.CharField(max_length=300, blank=True, null=True)
     flw_ref = models.CharField(max_length=300, blank=True, null=True)
@@ -480,10 +483,13 @@ class Order(models.Model):
         acc.payed = True
         acc.paypending = True
         acc.save()
+        if not self.id:
+            self.created = timezone.now()
+        self.modified = timezone.now() 
         if  self.status == "Approved":
                 acc = self.customer
                 amountx = self.amount
-             
+              
                 #if self.first == True :
                     #amountx = int(self.amount) - 5000
                     #acc.account_balance += amountx
@@ -509,10 +515,11 @@ class Order(models.Model):
                 elif self.product == "Simple Interest":
                     acc.simple_con = True
                     acc.save()
+               
                     simple = Simple.objects.create(user=self.customer, active=True, 
-                    duration=int(self.duration), due = self.date_ordered + relativedelta(months=+int(self.duration)),
+                    duration=int(self.duration), due = self.created + relativedelta(months=+int(self.duration)),
                     status=self.status,
-                    amount=amountx,txid = self.txid,paydate = self.date_ordered + relativedelta(months=+1)
+                    amount=amountx,txid = self.txid,paydate = self.created + relativedelta(months=+1)
                     )
                     simple.save()
 
