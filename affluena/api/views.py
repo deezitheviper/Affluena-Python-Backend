@@ -139,9 +139,11 @@ class ProfileView(APIView):
     def get(self, request, *args, **kwargs):
         username = self.request.query_params.get('username', None)
         profile = Profile.objects.get(user__username=username)
-        account_b = "{:,}".format(profile.user.account_balance)
         u = User.objects.get(username=username)
-        cp = u.compounding
+        account_b = "{:,}".format(u.account_balance)
+        account_no = u.account_no
+        bank_name = u.bank_name
+        account_name = u.account_name
         refCount = u.referredBy.count()
         flush = u.date_joined + timedelta(hours=7)
         p=""
@@ -167,8 +169,7 @@ class ProfileView(APIView):
                 c_d = u.stats.cpaydate
                 c_expired = s.due.date() < datetime.today().date()
     
-    
-        return Response({"code": profile.code,"pay_pending": pay_pending,"account_b": account_b,"c_expired":c_expired,"s_expired":s_expired, "c_due":c_d, "s_due":s_d, "payed":payed, "flush": flush,"refCount":refCount,"cp":cp })  
+        return Response({"code": profile.code,"refE":"0", "account_name":account_name,"account_no":account_no,"bank_name":bank_name, "pay_pending": pay_pending,"account_b": account_b,"c_expired":c_expired,"s_expired":s_expired, "c_due":c_d, "s_due":s_d, "payed":payed, "flush": flush,"refCount":refCount })  
 
 class TxView(APIView):
     
