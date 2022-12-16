@@ -344,7 +344,7 @@ class TopUp(models.Model):
 
 
     def __str__(self):
-         return self.user.full_name
+         return self.user.username
 
 class TopUpCompound(models.Model):
     STATUS = (
