@@ -372,7 +372,7 @@ class UpdateUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('email','phone','full_name','address','city','state','bank_name','account_no','account_name','is_verified') 
+        fields = ('email','phone','full_name','address','country','state','bank_name','account_no','account_name','is_verified') 
 
     def update(self, instance, validated_data):
         new_email = validated_data.pop('email', None)

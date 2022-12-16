@@ -22,7 +22,7 @@ urlpatterns = [
     path('loanList', LoanList.as_view()),
     path('getLoan', getLoan.as_view()),
     path('payout-now/', Payout.as_view()),
-    path('compounds', CompoundList.as_view()),
+    path('compounds/', CompoundList.as_view()),
     path('post-order/', PostOrder.as_view()),
     path('top-up/', PostTopup.as_view()),
     path('ctop-up/', PostCTopup.as_view()),
