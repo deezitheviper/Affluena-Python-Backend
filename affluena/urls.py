@@ -51,7 +51,7 @@ urlpatterns = [
     re_path(r'^account-confirm-email/', VerifyEmailView.as_view(),
      name='account_email_verification_sent'), 
     path('admin/', admin.site.urls),
-    re_path(r'user/*', TemplateView.as_view(template_name='indeex.html')),
+    re_path(r'user/*', TemplateView.as_view(template_name='dashboard.html')),
     re_path(r'password-reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})',
         TemplateView.as_view(template_name='index.html'),
         name='password_reset_confirm')
