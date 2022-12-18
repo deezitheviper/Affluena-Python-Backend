@@ -28,6 +28,21 @@ Before you can contribute and make use of this web app, either the customer mana
 
   ```
 
+  ## Custom Django Admin Functionalities 
+
+  ```
+  - Delete Orders
+  - Update Users
+  - Edit users
+  - Confirm Payments
+  - Confirm Upgrades/Top Ups
+  - Confirm Loans
+  - Approve Payouts
+  - Approve Withdrawals
+  - Export Due Payouts to CSV
+
+  ```
+
 ###### Authentication Rest Endpoints 
   ```
   - Normal Login Endpoint - http://127.0.0.1:8000/rest-auth/login/
@@ -40,5 +55,12 @@ Before you can contribute and make use of this web app, either the customer mana
   ```
 
 
+
+# Visuals
+
+
+## Client Side View on - affluena.netlify.app
+![Product Gif](./visuals/aff.gif)
+## User Dashbord 
 
 
