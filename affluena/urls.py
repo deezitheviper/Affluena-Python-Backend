@@ -22,7 +22,7 @@ urlpatterns = [
     path('phonerequest/',PhoneRequestDetail.as_view() ),
     path('phoneverifyrequest/',PhoneVerifyDetail.as_view() ),
     path('staff-login',views.user_login, name='login'),
-    path('register', views.register, name='register'),
+    path('staff-register', views.register, name='register'),
     path('password-reset/', auth_views.PasswordResetView.as_view(template_name='cms/password_reset_form.html'), name='reset_password'),
     path('password-sent/', auth_views.PasswordResetDoneView.as_view(template_name='cms/password_reset_done.html'), name='password_reset_done'),
     path('confirm-password/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name='cms/password_reset_confirm.html'), name='password_reset_confirm'),

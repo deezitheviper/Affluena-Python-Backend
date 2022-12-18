@@ -35,6 +35,7 @@ Before you can contribute and make use of this web app, either the customer mana
   - Confim Email - http://127.0.0.1:8000/account-confirm-email/
   - Forgot Password - http://127.0.0.1:8000/password/reset/
   - Reset Password - http://127.0.0.1:8000/rest-auth/password/reset/confirm/
+  - Resend Verification Email - http://127.0.0.1:8000/resend-verification-email/
 
   ```
 
