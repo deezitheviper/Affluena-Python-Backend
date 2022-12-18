@@ -59,7 +59,8 @@ Before you can contribute and make use of this web app, either the customer mana
 # Visuals
 
 
-## Client Side - [Live View](https://affluena.netlify.app) 
+## Client Side 
+ #### [Live Link](https://affluena.netlify.app) 
 ![Product Gif](./visuals/aff.gif)
 ## User Dashbord 
 
