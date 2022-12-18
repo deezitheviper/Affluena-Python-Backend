@@ -15,6 +15,7 @@ Before you can contribute and make use of this web app, either the customer mana
 - Run Migrations
 - Create Super User
 - Create Group named Staff
+- Run manage.py collect static, to collect static files
 
 ## Functionalities 
 
@@ -28,7 +29,7 @@ Before you can contribute and make use of this web app, either the customer mana
 
   ```
 
-  ## Custom Django Admin Functionalities 
+  ## Custom Admin Dashboard Functionalities 
 
   ```
   - Delete Orders
@@ -62,6 +63,8 @@ Before you can contribute and make use of this web app, either the customer mana
 ## Client Side 
  #### [Live Link](https://affluena.netlify.app) 
 ![Product Gif](./visuals/aff.gif)
+
 ## User Dashbord 
+![Product Gif](./visuals/dashboard.gif)
 
 
