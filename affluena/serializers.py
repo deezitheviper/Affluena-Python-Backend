@@ -284,12 +284,12 @@ class Login(LoginSerializer):
             if not user.is_active:
                 msg = _('User account is disabled.')
                 raise CustomValidation(
-                    'User account is disabled.',"error",status_code=status.HTTP_200_OK)
+                    'User account is disabled.',"error",status_code=status.HTTP_400_BAD_REQUEST)
 
         else:
             msg = _('Unable to log in with provided credentials.')
             raise CustomValidation(
-                   'Unable to log in with provided credentials.',"error",status_code=status.HTTP_200_OK)
+                   'Unable to log in with provided credentials.',"error",status_code=status.HTTP_400_BAD_REQUEST)
 
 
         # If required, is the email verified?
@@ -299,9 +299,9 @@ class Login(LoginSerializer):
                 try:
                     email_address = user.emailaddress_set.get(email=user.email)
                 except ObjectDoesNotExist:
-                    raise CustomValidation('E-mail does not exit',"error",status_code=status.HTTP_200_OK)
+                    raise CustomValidation('E-mail does not exit',"error",status_code=status.HTTP_400_BAD_REQUEST)
                 if not email_address.verified:
-                    raise CustomValidation('E-mail is not verified.',"error",status_code=status.HTTP_200_OK)
+                    raise CustomValidation('E-mail is not verified.',"error",status_code=status.HTTP_400_BAD_REQUEST)
 
         attrs['user'] = user
         return attrs
@@ -326,7 +326,7 @@ class PasswordResetSerializer(serializers.Serializer):
         if not self.reset_form.is_valid():
             raise serializers.ValidationError(self.reset_form.errors)
         if not get_user_model().objects.filter(email=value).exists():
-            raise CustomValidation('Account not found',"error",status_code=status.HTTP_200_OK)
+            raise CustomValidation('Account not found',"error",status_code=status.HTTP_400_BAD_REQUEST)
         return value
 
     def save(self):
