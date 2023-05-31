@@ -64,10 +64,10 @@ Before you can contribute and make use of this web app, either the customer mana
  #### [https://affluena.netlify.app](https://affluena.netlify.app) 
 ![Product Gif](./visuals/aff.gif)
 
-## User Dashbord 
+## User Dashboard 
 ![Product Gif](./visuals/dashboard.gif)
 
 
-## Admin Dashbord 
+## Admin Dashboard 
 ![Product Gif](./visuals/admin.gif)
 
