@@ -57,17 +57,5 @@ Before you can contribute and make use of this web app, either the customer mana
 
 
 
-# Visuals
 
-
-## Client Side 
- #### [https://affluena.netlify.app](https://affluena.netlify.app) 
-![Product Gif](./visuals/aff.gif)
-
-## User Dashboard 
-![Product Gif](./visuals/dashboard.gif)
-
-
-## Admin Dashboard 
-![Product Gif](./visuals/admin.gif)
 
